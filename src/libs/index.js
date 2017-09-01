@@ -1,5 +1,5 @@
 const fs = require('fs');
-const models = require('../models');
+const models = require('../models/mysql')();
 
 let lib = {};
 
