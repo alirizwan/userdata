@@ -41,6 +41,8 @@ CREATE TABLE `Users` (
 
 ## Running and Testing
 
+All API Calls must have header: `Content-Type: application/json`
+
 1. Create User
 `http://localhost:3000/users/` [POST] `{ "name": "Test Name", "email": "ali@test.com", "phone": "+442079460964" }`
 2. Get Users
