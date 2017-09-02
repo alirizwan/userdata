@@ -1,5 +1,5 @@
 const fs = require('fs');
-const AWS = require('ws-sdk');
+const AWS = require('aws-sdk');
 const DOC = require("dynamodb-doc");
 
 AWS.config.update({

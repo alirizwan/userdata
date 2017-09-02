@@ -2,7 +2,11 @@ module.exports = (req, libs) => ({
 
     '/': ({
         get(){
-            return libs.User.get(req);
+            if(req.query.id){
+                return libs.User.getById(req);
+            }else{
+                return libs.User.get(req);
+            }
         },
 
         post(){
@@ -12,7 +16,7 @@ module.exports = (req, libs) => ({
 
     'search/': ({
         get(){
-            return libs.User.get(req);
+            return libs.User.find(req);
         }
     })
 

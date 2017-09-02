@@ -1,5 +1,5 @@
 const fs = require('fs');
-const models = require('../models/mysql')();
+const models = require('../models/' + process.env.DB_TYPE);
 
 let lib = {};
 

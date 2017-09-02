@@ -1,4 +1,5 @@
 const querystring = require('querystring');
+const url = require('url');
 const libs = require('../libs');    // to avoid requiring them for each call and to control from one place.
 
 const responseHandler = (data, res) => {
@@ -37,18 +38,21 @@ const requestParser = (req, res) => {
 module.exports = (req, res) => {
 
     //TODO Replace simple url split with a proper url parser
-    let urls = req.url.split('/');
+    const refinedUrl = url.parse(req.url, true);
+    let urls = refinedUrl.pathname.split('/');
     urls.forEach((path, index) => {
         urls[index] = path === '' ? '/' : path;
     });
     urls = urls.concat(urls[urls.length - 1] === '/' ? [] : '/');
     const route = urls.splice(2).join('');
+    req.query = refinedUrl.query;
 
     requestParser(req, res).then(request => {
         return require('./' + urls[1])(request, libs)[route][req.method.toLowerCase()]().then(data => {
             responseHandler(data, res);
         });
     }).catch(err => {
+        console.log(err);
         responseHandler({ status: 500, data: { message: err.message } }, res);
     });
 
